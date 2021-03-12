@@ -8,10 +8,19 @@ var indexRouter = require('./routes/index');
 
 var app = express();
 
+// app.all('*', function(req, res, next) {
+//   res.header('Access-Control-Allow-Origin', '*')
+//   next()
+// })
+
 app.all('*', function(req, res, next) {
   res.header('Access-Control-Allow-Origin', '*')
+  //Access-Control-Allow-Headers ,可根据浏览器的F12查看,把对应的粘贴在这里就行
+  res.header('Access-Control-Allow-Headers', 'Authorization')
+  res.header('Access-Control-Allow-Methods', '*')
   next()
 })
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
