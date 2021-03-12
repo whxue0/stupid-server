@@ -9,8 +9,6 @@ const PostModel = require('../db/models').PostModel
 
 const filter = {password: 0, __v: 0}
 
-const globalURL = 'http://localhost:4000'
-
 /* GET home page. */
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
@@ -99,7 +97,7 @@ router.post('/updateUser', function(req, res) {
   if(base64) {
     const fileName = Date.parse(new Date()) + req.body.fileName
     const path = './public/uploads/avatar/'+ fileName
-    newPath = `/uploads/avatar/` + fileName
+    newPath = `/api/uploads/avatar/` + fileName
     base64Data = base64.replace(/^data:image\/jpeg;base64,/,"")
     binaryData =  Buffer.from(base64Data, 'base64').toString('binary');
     require("fs").writeFile( path, binaryData, "binary", function(err) {
@@ -147,7 +145,7 @@ router.post('/createPost', (req, res) => {
     for(let i = 0 ; i<base64List.length; i++) {
       const fileName = Date.parse(new Date()) + fileList[i]
       const path = './public/uploads/photo/'+ fileName
-      photoPathList.push('/uploads/photo/' + fileName)
+      photoPathList.push('/api/uploads/photo/' + fileName)
       base64Data = base64List[i].replace(/^data:image\/jpeg;base64,/,"")
       binaryData =  Buffer.from(base64Data, 'base64').toString('binary');
       require("fs").writeFile( path, binaryData, "binary", function(err) {
@@ -332,18 +330,18 @@ router.get('/getOtherPost',(req, res) => {
 
 
 //上传一张图片
-router.post('/upload', (req, res) => {
-  const base64 = req.body.url
-  const fileName = Date.parse(new Date()) + req.body.fileName
-  const path = './public/uploads/avatar/'+ fileName
-  const newPath = 'http://localhost:4000/uploads/avatar/' + fileName
-  base64Data = base64.replace(/^data:image\/png;base64,/,"")
-  binaryData =  Buffer.from(base64Data, 'base64').toString('binary');
-  require("fs").writeFile( path, binaryData, "binary", function(err) {
-      console.log(err); // writes out file without error, but it's not a valid image
-  });
-  res.send(newPath)
-})
+// router.post('/upload', (req, res) => {
+//   const base64 = req.body.url
+//   const fileName = Date.parse(new Date()) + req.body.fileName
+//   const path = './public/uploads/avatar/'+ fileName
+//   const newPath = 'http://localhost:4000/uploads/avatar/' + fileName
+//   base64Data = base64.replace(/^data:image\/png;base64,/,"")
+//   binaryData =  Buffer.from(base64Data, 'base64').toString('binary');
+//   require("fs").writeFile( path, binaryData, "binary", function(err) {
+//       console.log(err); // writes out file without error, but it's not a valid image
+//   });
+//   res.send(newPath)
+// })
 
 
 

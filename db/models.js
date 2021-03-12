@@ -23,7 +23,7 @@ const userSchema = mongoose.Schema({
     tag: {type:[String]},
     sex: {type:Number, default: 0},
     intro: {type:String, default: '我是个傻瓜！'},
-    avatar: {type:String, default: '/images/avatar/default.jpg'}
+    avatar: {type:String, default: 'api/images/avatar/default.jpg'}
 })
 const UserModel = mongoose.model('user', userSchema)
 exports.UserModel = UserModel
