@@ -17,7 +17,7 @@ const userSchema = mongoose.Schema({
     faith: {type:String},
     tag: {type:[String]},
     intro: {type:String},
-    avatar: {type:String, default: 'http:localhost:4000/images/avatar/default.jpg'}
+    avatar: {type:String, default: '/images/avatar/default.jpg'}
 })
 
 const UserModel = mongoose.model('user', userSchema)
