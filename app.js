@@ -4,9 +4,15 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
+var bodyParser = require('body-parser');
+
+
 var indexRouter = require('./routes/index');
 
 var app = express();
+
+app.use(bodyParser.json({limit: '5mb'}));
+app.use(bodyParser.urlencoded({limit: '5mb', extended: true}));
 
 // app.all('*', function(req, res, next) {
 //   res.header('Access-Control-Allow-Origin', '*')
@@ -14,11 +20,17 @@ var app = express();
 // })
 
 app.all('*', function(req, res, next) {
-  res.header('Access-Control-Allow-Origin', '*')
-  //Access-Control-Allow-Headers ,可根据浏览器的F12查看,把对应的粘贴在这里就行
-  res.header('Access-Control-Allow-Headers', 'Authorization')
-  res.header('Access-Control-Allow-Methods', '*')
-  next()
+    //设置允许跨域的域名，*代表允许任意域名跨域
+    res.setHeader("Access-Control-Allow-Origin","*");
+    //跨域允许的header类型
+    res.setHeader("Access-Control-Allow-Headers","Content-type,Content-Length,Authorization,Accept,X-Requested-Width");
+    //跨域允许的请求方式
+    res.setHeader("Access-Control-Allow-Methods","PUT,POST,GET,DELETE,OPTIONS");
+    //设置响应头信息
+    res.setHeader("X-Powered-By",' 3.2.1')
+    //让options请求快速返回
+    if(req.method == "OPTIONS"){return res.end();}
+    next()
 })
 
 // view engine setup
@@ -31,9 +43,11 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+//app.use('/api',express.static(path.join(__dirname, 'public')));
+app.use('/api',express.static('public'));//将文件设置成静态
 
-app.use('/', indexRouter);
+
+app.use('/api', indexRouter);
 
 
 // catch 404 and forward to error handler
