@@ -55,6 +55,7 @@ router.post('/login', function(req, res) {
 router.get('/getUser', function(req, res) {
   //登录判断
   const userid = req.cookies.userid
+  console.log('userid: ',userid)
   if(!userid) {
     return res.send({code: 1, msg: '请先登录'})
   }
