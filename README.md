@@ -2,9 +2,13 @@
 - 项目启动指引：
   - 开启mongodb服务。
   - 后端项目输入命令：
+    - npm i
     - npm run start
+    - 如果连接成功控制台会显示 `connect success`
   - 前端项目输入命令：
     - npm i
     - npm run start
   - 访问 http://localhost:3000/
+  - 此时数据库没有用户，需要自行注册创建。
+  - 由于网站保存cookie到浏览器作为登录凭证，所以一次只能登录一个用户，建议使用两台终端进行测试。
 
