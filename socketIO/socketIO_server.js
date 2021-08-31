@@ -15,6 +15,11 @@ module.exports = function (server) {
       new ChatModel({from, to, content, chat_id, create_time}).save(function (error, chatMsg) {
         // 向所有连接上的客户端发消息
         io.emit('receiveMsg', chatMsg)
+        
+        // emit 到  发送者的socket
+        // socket.emit('receiveMsg', chatMsg)
+        // 判断信息接收者的socket存不存在，如果存在则 emit 到 信息接收者的socket
+        // io.sockets.sockets
       })
     })
   })
